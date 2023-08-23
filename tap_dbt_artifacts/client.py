@@ -2,6 +2,7 @@
 
 import abc
 import json
+from pathlib import Path
 from typing import Optional, Iterable
 
 from singer_sdk.streams import Stream
@@ -11,8 +12,8 @@ class DbtArtifactsStream(Stream):
     """Stream class for dbtArtifacts streams."""
 
     @property
-    def artifact_path(self) -> str:
-        return f"{self._config['dbt_target_dir']}/{self.name}.json"
+    def artifact_path(self):
+        return Path(f"{self._config['dbt_target_dir']}/{self.name}.json")
 
     @abc.abstractmethod
     def process_record(self, record: dict) -> dict:
